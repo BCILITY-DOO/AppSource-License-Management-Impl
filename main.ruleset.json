@@ -1,0 +1,11 @@
+{
+    "name": "Global ruleset",
+    "description": "These rules must be respected by all the AL code written within the company.",
+    "rules": [
+        {
+            "id": "PTE0004",
+            "action": "Info",
+            "justification": "Missing a matching permission set"
+        }
+    ]
+}

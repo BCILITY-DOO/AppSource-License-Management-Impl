@@ -1,0 +1,34 @@
+{
+  "id": "52176c0a-07dc-4cc9-a5f0-c991cdf780d5",
+  "name": "Tests AppSource Template",
+  "publisher": "BCILITY",
+  "version": "1.0.0.0",
+  "brief": "BCILITY",
+  "description": "BCILITY",
+  "privacyStatement": "https://bcility.com/privacy-policy/",
+  "EULA": "https://bcility.com/eula/",
+  "contextSensitiveHelpUrl": "https://bcility.com/documentation/",
+  "help": "https://bcility.com/about-us/",
+  "url": "https://bcility.com",
+  "logo": "",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "24.0.0.0",
+  "idRanges": [
+    {
+      "from": 50100,
+      "to": 50149
+    }
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": false,
+    "allowDownloadingSource": false,
+    "includeSourceInSymbolFile": false
+  },
+  "runtime": "13.0",
+  "features": [
+    "NoImplicitWith",
+    "TranslationFile"
+  ]
+}

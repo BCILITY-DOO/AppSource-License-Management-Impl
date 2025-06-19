@@ -1,0 +1,12 @@
+{
+  "country": "w1",
+  "appSourceCopMandatoryAffixes": [
+    "BCY"
+  ],
+  "appFolders": [ "Application" ],
+  "testFolders": [ "Tests" ],
+  "bcptTestFolders": [],
+  "githubRunner": "self-hosted",
+  "enableCodeCop": true,
+  "versioningStrategy": 3
+}

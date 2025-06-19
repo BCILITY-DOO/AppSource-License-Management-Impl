@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "Application"
+		},
+		{
+			"path": "Test"
+		},
+	],
+	"settings": {
+        "CRS.FileNamePattern": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
+        "CRS.FileNamePatternExtensions": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
+        "CRS.FileNamePatternPageCustomizations": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
+        "CRS.RemovePrefixFromFilename": true,
+        "CRS.ObjectNamePrefix": "BCY ",
+        "CRS.OnSaveAlFileAction": "Rename",
+        "al.codeAnalyzers": [
+            "${CodeCop}",
+            "${AppSourceCop}",
+            "${UICop}"
+        ],
+        "al.backgroundCodeAnalysis": false,
+        "al.ruleSetPath": "..\\main.ruleset.json"
+	}
+}
