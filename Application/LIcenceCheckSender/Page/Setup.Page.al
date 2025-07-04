@@ -5,6 +5,8 @@ page 50552 "BCY Setup"
     PageType = Card;
     SourceTable = "BCY Setup";
     UsageCategory = Administration;
+    InsertAllowed = false;
+    DeleteAllowed = false;
 
     layout
     {
@@ -65,9 +67,12 @@ page 50552 "BCY Setup"
                 ToolTip = 'Checks the validity of the license.';
                 Image = ValidateEmailLoggingSetup;
                 trigger OnAction()
+                var
+                    CheckCompletedLbl: Label 'License validity check completed.';
                 begin
-                    LicenseValidation.CheckIsLicenseActive();
+                    LicenseValidation.MakeAndSendLicenseCheck();
                     UpdateRemainingDays();
+                    Message(CheckCompletedLbl);
                 end;
             }
         }

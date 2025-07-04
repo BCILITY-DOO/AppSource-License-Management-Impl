@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="sr-Latn-RS" original="AppSource-License-Management-Impl-Template">
+    <body>
+      <group id="body">
+        <trans-unit id="Table 157998673 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Impl Setup</source>
+          <target>Podešavanja Implementacije</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table BCY Setup - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 157998673 - Field 2632886192 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Contact E-Mail</source>
+          <target>Kontaktni mejl</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table BCY Setup - Field Contact Email - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 157998673 - Field 1934993911 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Is License Active</source>
+          <target>Da li je licenca aktivna</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table BCY Setup - Field Is License Active - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 157998673 - Field 1198226257 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Last License Check</source>
+          <target>Zadnja provera licence</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table BCY Setup - Field Last License Check - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 157998673 - Field 2885847217 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>License Valid Until</source>
+          <target>Licenca važi do</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table BCY Setup - Field License Valid Until - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 157998673 - Field 1663593181 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Primary Key</source>
+          <target>Primarni ključ</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table BCY Setup - Field Primary Key - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 2080197772 - Method 530002110 - NamedType 3973055178" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Failed to get access token from response\%1</source>
+          <target>Nismo uspeli da dobijemo pristupni token od odgovora\%1</target>
+          <note from="Developer" annotates="general" priority="2">%1 = Last Error Text</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit BCY License Validation - Method GetOAuthToken - NamedType FailedToGetAccessTokenErrLbl</note>
+        </trans-unit>
+        <trans-unit id="Page 157998673 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Impl Setup</source>
+          <target>Podešavanja Implementacije</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BCY Setup - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 157998673 - Control 2632886192 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the contact email field</source>
+          <target>Specificira vrednost polja kontaktni mejl.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BCY Setup - Control Contact Email - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 157998673 - Control 1620646633 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the Is License Valid field.</source>
+          <target>Specificira vrednost polja da li je licenca ispravna.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BCY Setup - Control Is License Valid - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 157998673 - Control 1198226257 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the value of the Last License Check field.</source>
+          <target>Specificira vrednost polja zadnja provera licence.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BCY Setup - Control Last License Check - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 157998673 - Control 2885847217 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the day the license expires.</source>
+          <target>Specificira dan kada ističe licenca.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BCY Setup - Control License Valid Until - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 157998673 - Control 15737725 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Specifies the number of days before you need to renew the license.</source>
+          <target>Određuje broj dana pre nego što je potrebno da obnovite licencu.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BCY Setup - Control RemainingDays - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 157998673 - Control 15737725 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Remaining Days</source>
+          <target>Preostali dani</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BCY Setup - Control RemainingDays - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 157998673 - Action 3670836273 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Checks the validity of the license.</source>
+          <target>Proverava ispravnost licence.</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BCY Setup - Action CheckLicenseValidity - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 157998673 - Action 3670836273 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Check License Validity</source>
+          <target>Proveri ispravnost licence</target>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page BCY Setup - Action CheckLicenseValidity - Property Caption</note>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>
