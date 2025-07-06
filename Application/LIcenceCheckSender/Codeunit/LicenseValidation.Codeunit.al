@@ -15,7 +15,7 @@ codeunit 50553 "BCY License Validation"
         exit(MakeAndSendLicenseCheck());
     end;
 
-    local procedure MakeAndSendLicenseCheck(): Boolean
+    internal procedure MakeAndSendLicenseCheck(): Boolean
     var
         RequestMessage: HttpRequestMessage;
         ResponseText: Text;
@@ -131,6 +131,7 @@ codeunit 50553 "BCY License Validation"
         RequestMessage.Content(Content);
     end;
 
+    [NonDebuggable]
     local procedure GetOAuthToken() AuthToken: SecretText
     var
         OAuth2: Codeunit OAuth2;
@@ -140,7 +141,7 @@ codeunit 50553 "BCY License Validation"
     begin
         ClientID := '...'; //TODO Add your client ID here
         ClientSecret := '...'; // TODO Add your client secret here
-        AccessTokenURL := 'https://login.microsoftonline.com/' + GetTenantGUID() + '/oauth2/v2.0/token';
+        AccessTokenURL := 'https://login.microsoftonline.com/' + GetReceiverTenantGUID() + '/oauth2/v2.0/token';
         Scopes.Add('https://api.businesscentral.dynamics.com/.default');
         if not OAuth2.AcquireTokenWithClientCredentials(ClientID, ClientSecret, AccessTokenURL, '', Scopes, AuthToken) then
             Error(FailedToGetAccessTokenErrLbl, GetLastErrorText());
