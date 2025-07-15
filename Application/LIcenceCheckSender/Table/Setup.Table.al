@@ -27,7 +27,7 @@ table 50552 "BCY Setup"
         {
             Caption = 'Contact E-Mail';
         }
-        field(6; "License Type"; Text[50])
+        field(6; "License Type"; Enum "BCY License Type")
         {
             Caption = 'License Type';
         }
