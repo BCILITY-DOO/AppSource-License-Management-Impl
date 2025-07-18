@@ -164,7 +164,7 @@ codeunit 50553 "BCY License Validation"
         CompleteJSON.Add('Date', Today());
         CompleteJSON.Add('IsEnvironmentProduction', EnvironmentInformation.IsProduction());
         CompleteJSON.Add('EnvironmentName', EnvironmentInformation.GetEnvironmentName());
-        CompleteJSON.Add('EnvironmentNumberOfUsers', User.Count());
+        CompleteJSON.Add('EnvironmentNumberOfUsers', GetNumberOfUsers());
         CompleteJSON.Add('CompanyName', CompanyName());
         CompleteJSON.Add('CompanyVATNo', CompanyInformation."VAT Registration No.");
         CompleteJSON.Add('CompanyAddress', CompanyInformation.Address);
@@ -175,6 +175,19 @@ codeunit 50553 "BCY License Validation"
         CompleteJSON.WriteTo(HelperVar);
         Clear(CompleteJSON);
         CompleteJSON.Add('data', HelperVar);
+    end;
+
+    internal procedure GetNumberOfUsers() NumberOfUsers: Integer
+    var
+        User: Record User;
+    begin
+        User.SetRange("License Type", User."License Type"::"Full User");
+        User.SetRange(State, User.State::Enabled);
+        NumberOfUsers += User.Count();
+        User.Reset();
+        User.SetRange("License Type", User."License Type"::"Device Only User");
+        User.SetRange(State, User.State::Enabled);
+        NumberOfUsers += User.Count();
     end;
 
     local procedure GetTenantGUID(): Text
