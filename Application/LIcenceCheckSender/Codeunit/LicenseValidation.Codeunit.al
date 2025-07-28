@@ -36,11 +36,18 @@ codeunit 50553 "BCY License Validation"
         LicenseManagementSetup: Record "BCY Setup";
         EndOfLicenseNotification: Notification;
         EndOfLicenseTextLbl: Label 'You have %1 days remaining before your %2 license expires, if you want to extend your license please contact us via E-mail: %3.', Comment = '%1= Number of remaining days, %2 = App Name, %3 = contact email';
+        LicenseExpiredTextLbl: Label 'Your license has expired for "%1" Extension, if you want to extend your license please contact us via E-mail: %2. Extension will not work until license has been renewed.', Comment = '%1 = app name, %2 = contact email';
     begin
         GetLicenseSetup(LicenseManagementSetup);
+        if LicenseManagementSetup."License Type" in [LicenseManagementSetup."License Type"::Free] then
+            exit;
         case LicenseManagementSetup."License Valid Until" = 0D of
             true:
-                exit;
+                begin
+                    EndOfLicenseNotification.Message(StrSubstNo(LicenseExpiredTextLbl, GetAppName(), LicenseManagementSetup."Contact Email"));
+                    EndOfLicenseNotification.Scope := NotificationScope::LocalScope;
+                    EndOfLicenseNotification.Send();
+                end;
             false:
                 if CheckIsLicenseActive() and (LicenseManagementSetup."License Valid Until" - Today() < 7) then begin
                     EndOfLicenseNotification.Message(StrSubstNo(EndOfLicenseTextLbl, LicenseManagementSetup."License Valid Until" - Today(), GetAppName(), LicenseManagementSetup."Contact Email"));
@@ -145,7 +152,7 @@ codeunit 50553 "BCY License Validation"
     begin
         ClientID := '...'; //TODO Add your client ID here
         ClientSecret := '...'; // TODO Add your client secret here
-        AccessTokenURL := 'https://login.microsoftonline.com/' + GetTenantGUID() + '/oauth2/v2.0/token';
+        AccessTokenURL := 'https://login.microsoftonline.com' + GetReceiverTenantGUID() + '/oauth2/v2.0/token';
         Scopes.Add('https://api.businesscentral.dynamics.com/.default');
         if not OAuth2.AcquireTokenWithClientCredentials(ClientID, ClientSecret, AccessTokenURL, '', Scopes, AuthToken) then
             Error(FailedToGetAccessTokenErrLbl, GetLastErrorText());
@@ -162,7 +169,7 @@ codeunit 50553 "BCY License Validation"
         CompleteJSON.Add('AppGUID', DelChr(GetAppGUID(), '=', '{}'));
         CompleteJSON.Add('AppName', GetAppName());
         CompleteJSON.Add('BCVersion', GetCurrBCVersion());
-        CompleteJSON.Add('AppVersion', EnvironmentInformation.VersionInstalled(GetAppGUID()));
+        CompleteJSON.Add('AppVersion', GetAppVersion());
         CompleteJSON.Add('TenantGUID', GetTenantGUID());
         CompleteJSON.Add('TenantName', GetTenantName());
         CompleteJSON.Add('Date', Today());
@@ -215,6 +222,14 @@ codeunit 50553 "BCY License Validation"
     begin
         NavApp.GetCurrentModuleInfo(modInfo);
         AppNAme := modInfo.Name();
+    end;
+
+    local procedure GetAppVersion(): Text
+    var
+        ModInfo: ModuleInfo;
+    begin
+        NavApp.GetCurrentModuleInfo(ModInfo);
+        exit(Format(ModInfo.DataVersion.Major()) + '.' + Format(ModInfo.DataVersion.Minor()) + '.' + Format(ModInfo.DataVersion.Build()) + '.' + Format(ModInfo.DataVersion.Revision()));
     end;
 
     local procedure GetCurrBCVersion() AppVersion: Text
@@ -286,7 +301,7 @@ codeunit 50553 "BCY License Validation"
     var
         Helper: Text;
     begin
-        if not IsolatedStorage.Contains('BCY_IsLicenseValid', DataScope::Module) then // You Can change the Isolated storage key  
+        if not IsolatedStorage.Contains('BCY_IsLicenseValid', DataScope::Module) then // You Can change the Isolated storage key
             exit(false);
         IsolatedStorage.Get('BCY_IsLicenseValid', DataScope::Module, Helper);
         Evaluate(Value, Helper);
