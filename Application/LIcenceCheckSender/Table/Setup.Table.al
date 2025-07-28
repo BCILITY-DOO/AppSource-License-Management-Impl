@@ -1,4 +1,4 @@
-table 50552 "BCY Setup"
+table 50100 "BCY Setup"
 {
     Caption = 'Setup';
     DataClassification = CustomerContent;

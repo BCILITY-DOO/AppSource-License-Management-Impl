@@ -1,4 +1,4 @@
-codeunit 50553 "BCY License Validation"
+codeunit 50100 "BCY License Validation"
 {
     trigger OnRun()
     begin

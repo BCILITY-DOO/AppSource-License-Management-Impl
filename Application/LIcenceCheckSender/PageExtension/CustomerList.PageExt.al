@@ -1,4 +1,4 @@
-pageextension 50551 "BCY Customer List" extends "Customer List"
+pageextension 50100 "BCY Customer List" extends "Customer List"
 {
     trigger OnOpenPage()
     var

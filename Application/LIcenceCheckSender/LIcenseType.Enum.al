@@ -1,4 +1,4 @@
-enum 50549 "BCY License Type"
+enum 50100 "BCY License Type"
 {
     Extensible = false;
 

@@ -1,4 +1,4 @@
-page 50552 "BCY Setup"
+page 50100 "BCY Setup"
 {
     ApplicationArea = All;
     Caption = 'Setup';
