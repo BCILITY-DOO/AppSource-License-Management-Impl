@@ -9,7 +9,7 @@ codeunit 50553 "BCY License Validation"
     var
         LicenseManagementSetup: Record "BCY Setup";
     begin
-        LicenseManagementSetup.Get();
+        GetLicenseSetup(LicenseManagementSetup);
         if IsLicenseActive() and (LicenseManagementSetup."Last License Check" = Today()) then
             exit(true);
         exit(MakeAndSendLicenseCheck());
@@ -37,7 +37,7 @@ codeunit 50553 "BCY License Validation"
         EndOfLicenseNotification: Notification;
         EndOfLicenseTextLbl: Label 'You have %1 days remaining before your %2 license expires, if you want to extend your license please contact us via E-mail: %3.', Comment = '%1= Number of remaining days, %2 = App Name, %3 = contact email';
     begin
-        LicenseManagementSetup.Get();
+        GetLicenseSetup(LicenseManagementSetup);
         case LicenseManagementSetup."License Valid Until" = 0D of
             true:
                 exit;
@@ -57,7 +57,7 @@ codeunit 50553 "BCY License Validation"
         if IsolatedStorage.Contains('BCY_IsLicenseValid', DataScope::Module) then
             IsolatedStorage.Delete('BCY_IsLicenseValid', DataScope::Module);
         IsolatedStorage.Set('BCY_IsLicenseValid', 'false', DataScope::Module);
-        LicenseManagementSetup.Get();
+        GetLicenseSetup(LicenseManagementSetup);
         LicenseManagementSetup."License Valid Until" := 0D;
         LicenseManagementSetup.Modify();
     end;
@@ -66,8 +66,10 @@ codeunit 50553 "BCY License Validation"
     var
         LicenseManagementSetup: Record "BCY Setup";
         Response: JsonObject;
+        LicenseTypeIndex, OrdinalValue : Integer;
+        LicenseType: Enum "BCY License Type";
     begin
-        LicenseManagementSetup.Get();
+        GetLicenseSetup(LicenseManagementSetup);
         if not Response.ReadFrom(ResponseText) then
             exit(false);
         if not Response.ReadFrom(Response.GetText('value')) then
@@ -90,7 +92,9 @@ codeunit 50553 "BCY License Validation"
         end;
         LicenseManagementSetup."Contact Email" := Response.GetText('ContactEmail');
         LicenseManagementSetup."Last License Check" := Today();
-        LicenseManagementSetup."License Type" := Response.GetText('LicenseType');
+        LicenseTypeIndex := LicenseType.Names.IndexOf(Response.GetText('LicenseType'));
+        OrdinalValue := LicenseType.Ordinals.Get(LicenseTypeIndex);
+        LicenseManagementSetup."License Type" := Enum::"BCY License Type".FromInteger(OrdinalValue);
         LicenseManagementSetup.Modify();
         exit(LicenseManagementSetup."Is License Active");
     end;
@@ -141,7 +145,7 @@ codeunit 50553 "BCY License Validation"
     begin
         ClientID := '...'; //TODO Add your client ID here
         ClientSecret := '...'; // TODO Add your client secret here
-        AccessTokenURL := 'https://login.microsoftonline.com/' + GetReceiverTenantGUID() + '/oauth2/v2.0/token';
+        AccessTokenURL := 'https://login.microsoftonline.com/' + GetTenantGUID() + '/oauth2/v2.0/token';
         Scopes.Add('https://api.businesscentral.dynamics.com/.default');
         if not OAuth2.AcquireTokenWithClientCredentials(ClientID, ClientSecret, AccessTokenURL, '', Scopes, AuthToken) then
             Error(FailedToGetAccessTokenErrLbl, GetLastErrorText());
@@ -282,9 +286,18 @@ codeunit 50553 "BCY License Validation"
     var
         Helper: Text;
     begin
-        if not IsolatedStorage.Contains('License', DataScope::Module) then // You Can change the Isolated storage key  
+        if not IsolatedStorage.Contains('BCY_IsLicenseValid', DataScope::Module) then // You Can change the Isolated storage key  
             exit(false);
-        IsolatedStorage.Get('License', DataScope::Module, Helper);
+        IsolatedStorage.Get('BCY_IsLicenseValid', DataScope::Module, Helper);
         Evaluate(Value, Helper);
+    end;
+
+    local procedure GetLicenseSetup(var Setup: Record "BCY Setup")
+    var
+    begin
+        if Setup.Get() then
+            exit;
+        Setup.Init();
+        Setup.Insert();
     end;
 }
