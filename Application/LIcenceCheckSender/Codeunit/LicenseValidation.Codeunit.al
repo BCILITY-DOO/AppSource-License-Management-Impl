@@ -8,7 +8,12 @@ codeunit 50100 "BCY License Validation"
     internal procedure CheckIsLicenseActive(): Boolean
     var
         LicenseManagementSetup: Record "BCY Setup";
+        HttpRequestsNotAllowedErr: Label 'Please allow http requests to use the %1 app.', Comment = '%1 = App Name';
     begin
+        if not CheckHttpRequestsAllowed() then begin
+            DisableLicense();
+            Error(HttpRequestsNotAllowedErr, GetAppName());
+        end;
         GetLicenseSetup(LicenseManagementSetup);
         if IsLicenseActive() and (LicenseManagementSetup."Last License Check" = Today()) then
             exit(true);
@@ -65,8 +70,11 @@ codeunit 50100 "BCY License Validation"
             IsolatedStorage.Delete('BCY_IsLicenseValid', DataScope::Module);
         IsolatedStorage.Set('BCY_IsLicenseValid', 'false', DataScope::Module);
         GetLicenseSetup(LicenseManagementSetup);
+        LicenseManagementSetup."Is License Active" := false;
+        LicenseManagementSetup."License Type" := LicenseManagementSetup."License Type"::Expired;
         LicenseManagementSetup."License Valid Until" := 0D;
         LicenseManagementSetup.Modify();
+        Commit();
     end;
 
     local procedure ReadDataFromResponseAndGetIsLicenseActive(ResponseText: Text): Boolean
@@ -314,5 +322,14 @@ codeunit 50100 "BCY License Validation"
             exit;
         Setup.Init();
         Setup.Insert();
+    end;
+
+    local procedure CheckHttpRequestsAllowed(): Boolean
+    var
+        NAVAppSetting: Record "NAV App Setting";
+    begin
+        if not NAVAppSetting.Get(GetAppGUID()) then
+            exit(false);
+        exit(NAVAppSetting."Allow HttpClient Requests");
     end;
 }
