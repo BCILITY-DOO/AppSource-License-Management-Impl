@@ -4,6 +4,7 @@ table 50100 "BCY Setup"
     DataClassification = CustomerContent;
     LookupPageId = "BCY Setup";
     DrillDownPageId = "BCY Setup";
+    Access = Internal;
 
     fields
     {

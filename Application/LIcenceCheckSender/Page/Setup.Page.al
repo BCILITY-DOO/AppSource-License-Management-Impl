@@ -7,6 +7,7 @@ page 50100 "BCY Setup"
     UsageCategory = Administration;
     InsertAllowed = false;
     DeleteAllowed = false;
+    Extensible = false;
 
     layout
     {

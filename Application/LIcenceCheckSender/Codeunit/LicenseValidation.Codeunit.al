@@ -1,5 +1,6 @@
 codeunit 50100 "BCY License Validation"
 {
+    Access = Internal;
     trigger OnRun()
     begin
         CheckIsLicenseActive();
