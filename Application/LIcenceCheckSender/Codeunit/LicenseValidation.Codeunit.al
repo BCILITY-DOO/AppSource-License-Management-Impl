@@ -8,12 +8,8 @@ codeunit 50100 "BCY License Validation"
     internal procedure CheckIsLicenseActive(): Boolean
     var
         LicenseManagementSetup: Record "BCY Setup";
-        HttpRequestsNotAllowedErr: Label 'Please allow http requests to use the %1 app.', Comment = '%1 = App Name';
     begin
-        if not CheckHttpRequestsAllowed() then begin
-            DisableLicense();
-            Error(HttpRequestsNotAllowedErr, GetAppName());
-        end;
+
         GetLicenseSetup(LicenseManagementSetup);
         if IsLicenseActive() and (LicenseManagementSetup."Last License Check" = Today()) then
             exit(true);
@@ -24,7 +20,12 @@ codeunit 50100 "BCY License Validation"
     var
         RequestMessage: HttpRequestMessage;
         ResponseText: Text;
+        HttpRequestsNotAllowedErr: Label 'Please allow http requests to use the %1 app.', Comment = '%1 = App Name';
     begin
+        if not CheckHttpRequestsAllowed() then begin
+            DisableLicense();
+            Error(HttpRequestsNotAllowedErr, GetAppName());
+        end;
         if not MakeHttpRequest(RequestMessage) then begin
             DisableLicense();
             exit(false);
