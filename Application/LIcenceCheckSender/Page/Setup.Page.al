@@ -70,7 +70,7 @@ page 50100 "BCY Setup"
                 var
                     CheckCompletedLbl: Label 'License validity check completed.';
                 begin
-                    LicenseValidation.CheckIsLicenseActive();
+                    LicenseValidation.MakeAndSendLicenseCheck();
                     UpdateRemainingDays();
                     Message(CheckCompletedLbl);
                 end;
