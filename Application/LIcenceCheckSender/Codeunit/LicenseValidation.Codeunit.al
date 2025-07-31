@@ -20,8 +20,8 @@ codeunit 50100 "BCY License Validation"
     internal procedure MakeAndSendLicenseCheck(): Boolean
     var
         RequestMessage: HttpRequestMessage;
-        ResponseText: Text;
         HttpRequestsNotAllowedErr: Label 'Please allow http requests to use the %1 app.', Comment = '%1 = App Name';
+        ResponseText: Text;
     begin
         if not CheckHttpRequestsAllowed() then begin
             DisableLicense();
@@ -82,9 +82,9 @@ codeunit 50100 "BCY License Validation"
     local procedure ReadDataFromResponseAndGetIsLicenseActive(ResponseText: Text): Boolean
     var
         LicenseManagementSetup: Record "BCY Setup";
-        Response: JsonObject;
-        LicenseTypeIndex, OrdinalValue : Integer;
         LicenseType: Enum "BCY License Type";
+        LicenseTypeIndex, OrdinalValue : Integer;
+        Response: JsonObject;
     begin
         GetLicenseSetup(LicenseManagementSetup);
         if not Response.ReadFrom(ResponseText) then
@@ -171,7 +171,6 @@ codeunit 50100 "BCY License Validation"
     local procedure MakeSenderJSON() CompleteJSON: JsonObject
     var
         CompanyInformation: Record "Company Information";
-        User: Record User;
         EnvironmentInformation: Codeunit "Environment Information";
         HelperVar: Text;
     begin
@@ -260,7 +259,7 @@ codeunit 50100 "BCY License Validation"
 
     local procedure GetReceiverTenantGUID(): Text
     var
-        TenantGUIDLbl: Label '...', Locked = true; //TODO Your Tenant GUID 
+        TenantGUIDLbl: Label '...', Locked = true; //TODO Your Tenant GUID
     begin
         exit('/' + TenantGUIDLbl);
     end;
