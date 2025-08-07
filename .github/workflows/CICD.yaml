@@ -7,7 +7,7 @@ on:
       - '**.md'
       - '.github/workflows/*.yaml'
       - '!.github/workflows/CICD.yaml'
-    branches: [ 'main', 'release/*', 'feature/*' ]
+    branches: [ 'main', 'master', 'release/*', 'feature/*' ]
 
 defaults:
   run:
@@ -15,7 +15,7 @@ defaults:
 
 permissions:
   actions: read
-  contents: read
+  contents: write
   id-token: write
   pages: read
 
@@ -25,8 +25,48 @@ env:
   ALGoRepoSettings: ${{ vars.ALGoRepoSettings }}
 
 jobs:
+  GeneratePermissions:
+    runs-on: [ self-hosted ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate Permissions
+        run: |
+          Set-Location ".\.AL-Go\"
+          .\generate_permissions.ps1
+        shell: powershell
+
+      - name: Commit and push if changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          if (git diff --staged --quiet) {
+            Write-Host "No changes to commit"
+          } else {
+            git commit -m "Auto-generate permissions file [skip ci]"
+            git push origin HEAD:${{ github.ref_name }}
+          }
+        shell: powershell
+
+  ValidateInternalAccess:
+    needs: [ GeneratePermissions ]
+    runs-on: [ self-hosted ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Validate Public Property Placement
+        run: |
+          Set-Location ".\.AL-Go\"
+          .\error_if_incorrect_public_property.ps1
+        shell: powershell
+
   Initialization:
-    needs: [ ]
+    needs: [ ValidateInternalAccess ]
     runs-on: [ self-hosted ]
     outputs:
       telemetryScopeJson: ${{ steps.init.outputs.telemetryScopeJson }}
