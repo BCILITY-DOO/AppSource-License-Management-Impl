@@ -1,11 +1,13 @@
 enum 50100 "BCY License Type"
 {
     Extensible = false;
+    Access = Internal
 
-    value(0; "")
+    value(0;
+    "")
     {
         Caption = '';
-    }
+}
     value(1; Free)
     {
         Caption = 'Free';
