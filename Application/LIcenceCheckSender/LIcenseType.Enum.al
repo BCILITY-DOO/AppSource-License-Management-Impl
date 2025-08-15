@@ -1,6 +1,7 @@
 enum 50100 "BCY License Type"
 {
     Extensible = false;
+    Access = Internal;
 
     value(0; "")
     {
