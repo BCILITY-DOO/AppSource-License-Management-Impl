@@ -4,7 +4,7 @@ enum 50100 "BCY License Type"
 
     value(0; "")
     {
-        Caption = '';
+        Caption = '', Locked = true;
     }
     value(1; Free)
     {
